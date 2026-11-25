@@ -1,0 +1,37 @@
+==================================================
+TASK 1: Configure Git Identity
+==================================================
+git config --local user.name "Test Student"
+git config --local user.email "student@example.com"
+git config --local --list
+
+
+==================================================
+TASK 2: Initialize Local Repository
+==================================================
+mkdir ds_lab_project
+cd ds_lab_project
+git init
+Get-ChildItem -Force
+
+
+==================================================
+TASK 3: Snapshot Creation and History
+==================================================
+Set-Content -Path data.txt -Value "Initial Data"
+git add data.txt
+git commit -m "Add initial data snapshot"
+git log --oneline
+
+
+==================================================
+TASK 4: Reproducibility and Exclusion Logic
+==================================================
+Set-Content -Path secrets.txt -Value "API_KEY=12345"
+Set-Content -Path .gitignore -Value "secrets.txt"
+git add .gitignore
+git commit -m "Ignore sensitive data"
+git status --ignored
+
+.gitignore content:
+secrets.txt

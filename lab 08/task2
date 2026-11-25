@@ -1,0 +1,49 @@
+==================================================
+TASK 1: Initialize Repo and Ignore
+==================================================
+mkdir git_lab
+cd git_lab
+git init
+@"
+.env
+data/
+*.csv
+__pycache__/
+.ipynb_checkpoints/
+"@ | Set-Content -Path .gitignore
+New-Item -ItemType File -Path secret.env
+mkdir data
+New-Item -ItemType File -Path data/test.csv
+git status
+
+
+==================================================
+TASK 2: Stage Specific Files Only
+==================================================
+Set-Content -Path main.py -Value "print('Hello Git Lab')"
+Set-Content -Path notes.txt -Value "Initial project notes"
+git add main.py
+git status
+
+Explanation:
+Based on the git status output, main.py is staged under "Changes to be committed," whereas notes.txt (along with .gitignore) is unstaged and untracked rather than modified because it is a newly created file that has not been tracked or committed yet.
+
+
+==================================================
+TASK 3: Commit with Imperative Message
+==================================================
+git add .
+git commit -m "Add initial project structure and ignore rules"
+git log --oneline -1
+
+
+==================================================
+TASK 4: Simulate Remote Push Logic
+==================================================
+mkdir "C:\Users\Muzamil Memon\Desktop\DSA lab files\remote_sim"
+git -C "C:\Users\Muzamil Memon\Desktop\DSA lab files\remote_sim" init
+git remote add origin "C:/Users/Muzamil Memon/Desktop/DSA lab files/remote_sim"
+git push origin master
+
+Explanation:
+This local push failed due to a non-bare remote repository rather than missing credentials, whereas an unauthenticated push to a real remote fails because the server denies write access without valid authentication (such as an SSH key or token). Even so, the attempt shows how git push sends commits from a local branch to a configured remote ("origin") to sync history.

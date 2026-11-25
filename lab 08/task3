@@ -1,0 +1,64 @@
+==================================================
+TASK 1: Create and Verify New Branch
+==================================================
+cd "C:\Users\Muzamil Memon\Desktop\DSA lab files"
+mkdir project
+cd project
+git init -b main
+Set-Content -Path main.py -Value "print('Hello')"
+git add main.py
+git commit -m "Add initial main.py"
+git checkout -b feature
+git branch
+git status
+
+
+==================================================
+TASK 2: Simulate and Resolve Merge Conflict
+==================================================
+Set-Content -Path main.py -Value "print('Feature Update')"
+git add main.py
+git commit -m "Update main.py on feature branch"
+git checkout main
+Set-Content -Path main.py -Value "print('Main Update')"
+git add main.py
+git commit -m "Update main.py on main branch"
+git merge feature
+Get-Content -Path main.py
+
+@"
+print('Main Update')
+print('Feature Update')
+"@ | Set-Content -Path main.py
+git add main.py
+git status
+git commit -m "Resolve merge conflict by keeping both updates"
+Get-Content -Path main.py
+git status
+
+
+==================================================
+TASK 3: Draft Pull Request Description
+==================================================
+PR Title:
+Add feature branch logging
+
+PR Description:
+## Summary
+This pull request merges the `feature` branch into `main` to add the feature branch logging line in `main.py` alongside the existing main branch update.
+
+## Why this change
+Isolating the new feature on `feature` lets us test changes safely before integrating them, and merging into `main` updates the primary branch with a clean record of how conflicting edits were resolved.
+
+## How to test
+1. Run `git checkout main` and `git pull origin main`.
+2. Inspect the merged changes using `git log -n 2` or `git diff HEAD~1`.
+3. Execute `python main.py` and confirm the expected output displays both lines:
+   Main Update
+   Feature Update
+
+
+==================================================
+TASK 4: Inspect Merge Commit History
+==================================================
+git log --graph --oneline --all

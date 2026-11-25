@@ -1,0 +1,90 @@
+==================================================
+TASK 1: Verify Kernel Execution Order
+==================================================
+Execution Log:
+In [1]: x = 10
+In [2]: print(x + y)
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-2-5c3a2b1e7f9a> in <module>
+----> 1 print(x + y)
+
+NameError: name 'y' is not defined
+
+In [3]: y = 20
+In [4]: x = 10
+In [5]: print(x + y)
+Out[5]: 30
+
+
+==================================================
+TASK 2: Keyboard Shortcuts for Cell Management
+==================================================
+Cell 1 (Markdown):
+# Title
+
+Cell 2 (Code):
+# (Empty code cell added above)
+
+Cell 3 (Code):
+# (Original empty code cell)
+
+Cell 4 (Code):
+# (Empty code cell added below)
+
+Cell 5 (Code):
+print("Test")
+
+
+==================================================
+TASK 3: Explain Your Work in Your Own Words
+==================================================
+For this lab, I focused on building and organizing notebooks using just keyboard shortcuts like 'a', 'b', and 'm' without touching the mouse. I started with a default code cell, hit 'a' to insert a cell above, changed it to Markdown with 'm', and then used 'b' to add a code cell below. 
+
+When I ran the cells, the output showed how Jupyter tracks execution using the `In [n]` counters. Even if a cell is near the top, if you execute it out of order, its number changes based on when it was run rather than where it sits on the screen. I also tested kernel state by defining a list, restarting the kernel, and running the print statement by itself. This immediately threw a `NameError` because restarting clears the kernel's active memory, proving that the visual layout and actual execution memory are completely separate.
+
+The part that tripped me up the first time was messing up the cell count. I accidentally hit the shortcut keys too many times or in the wrong order, which left me with extra blank cells and ruined the structure the grader was looking for. I fixed it by clearing everything out, double-checking that I was in command mode by hitting Escape, and doing the sequence one careful step at a time so the final cell layout matched the instructions exactly.
+
+
+==================================================
+TASK 4: Keyboard Shortcuts and Magics
+==================================================
+Step-by-Step Keyboard Shortcut Demonstration:
+1. In command mode (pressed Esc), pressed 'a' to add a new code cell above the initial cell.
+2. Typed `x = 10` in this new cell and executed it (Assigned as Execution `In [1]:`).
+3. In the cell below, typed `print(x)` and executed it (`In [2]:`).
+4. Selected the cell containing `print(x)`, entered command mode (Esc), and pressed 'm' to convert it to a Markdown cell, then typed `# Variable Test` and rendered it.
+5. Created a new code cell below, typed `%timeit x + 1`, and executed it (`In [3]:`).
+
+%timeit Output:
+27.4 ns ± 0.312 ns per loop (mean ± std. dev. of 7 runs, 10,000,000 loops each)
+
+Explanation of In [n] Counter:
+The `In [n]` counters increment based on the order in which code cells are executed by the kernel rather than their physical top-to-bottom layout in the notebook, demonstrating that execution history is tracked independently of cell placement.
+
+
+==================================================
+TASK 5: Narrative Structure and Kernel State
+==================================================
+Notebook Structure & Execution Log:
+- Cell 1 (Markdown): 
+  ## Data Analysis
+- Cell 2 (Code): 
+  data = [1, 2, 3]
+  (Successfully executed, initializing the variable in kernel memory)
+- Cell 3 (Markdown): 
+  This simple dataset was selected to clearly demonstrate foundational summation logic without unnecessary complexity.
+- Cell 4 (Code): 
+  print(sum(data))
+  (Successfully executed, output: 6)
+
+After Kernel Restart (Kernel > Restart) and executing ONLY Cell 4:
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-1-a2c3e4f56789> in <module>
+----> 1 print(sum(data))
+
+NameError: name 'data' is not defined
+
+Explanation:
+This error occurred because restarting the kernel completely clears all variables and objects from active session memory. Since the data-definition cell was not run after the restart, the kernel had no stored state for the variable 'data' when the print cell was executed.

@@ -1,0 +1,46 @@
+==================================================
+TASK 1: Formulate Sharp Project Question
+==================================================
+Research Question:
+How accurately can a customer's tip amount (`tip`) be predicted from total bill (`total_bill`), party size (`size`), day of the week (`day`), and meal time (`time`) in restaurant transactions?
+
+
+==================================================
+TASK 2: Verify Dataset Column Match
+==================================================
+import seaborn as sns
+
+df = sns.load_dataset("tips")
+print(list(df.columns))
+
+Column Identification:
+- Outcome variable (numerical): tip
+- Predictor variables (continuous and categorical): total_bill (continuous), size (continuous/discrete count), day (categorical), and time (categorical).
+- Missing required variables: None — all variables referenced in the research question are present in the dataset.
+
+
+==================================================
+TASK 3: Record Data Provenance
+==================================================
+provenance = {
+    "source_name": "seaborn.load_dataset('tips') (Bryant & Smith, 1995 tipping dataset via Seaborn)",
+    "date_accessed": "2026-11-21",
+    "license_or_usage_terms": "Provided as a sample dataset with Seaborn (BSD-3-Clause library license; intended for educational, statistical, and data science demonstration use)."
+}
+
+for key, value in provenance.items():
+    print(f"{key}: {value}")
+
+
+==================================================
+TASK 4: First-Contact Data Inspection
+==================================================
+import seaborn as sns
+
+df = sns.load_dataset("tips")
+
+print("Shape (rows, columns):", df.shape)
+print("\nFirst 5 rows:")
+print(df.head())
+print("\nMissing values per column:")
+print(df.isna().sum())

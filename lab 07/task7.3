@@ -1,0 +1,54 @@
+==================================================
+TASK 1: Export Notebook to HTML
+==================================================
+jupyter nbconvert --to html demo_notebook.ipynb --output demo_output.html
+
+
+==================================================
+TASK 2: Inline Matplotlib Visualization
+==================================================
+Python Code:
+%matplotlib inline
+import matplotlib.pyplot as plt
+
+values = [1, 2, 3, 4, 5]
+plt.plot(values)
+plt.title("Simple Linear Trend")
+plt.xlabel("Index")
+plt.ylabel("Value")
+plt.show()
+
+Markdown Interpretation:
+The line plot shows a steady, linear upward trend from 1 to 5 across consecutive points, increasing by 1 unit at each step with no dips or fluctuations.
+
+
+==================================================
+TASK 3: Verify Reproducibility via Restart
+==================================================
+Cell 1:
+x = 10
+
+Cell 2:
+print(x)
+
+Kernel Restart Action:
+Restarted the Jupyter kernel (via Kernel -> Restart Kernel in the notebook interface) to wipe all in-memory variables and execution history.
+
+Before Re-running Cell 1:
+Running print(x) in a new cell raises a NameError: name 'x' is not defined because the kernel memory was cleared and Cell 1 has not executed in the fresh session.
+
+After Re-running Cell 1:
+Once Cell 1 is executed again to define x = 10, running print(x) in the new cell prints 10.
+
+
+==================================================
+TASK 4: Export and Sanitize for Sharing
+==================================================
+Export to Python Script Command:
+jupyter nbconvert --to script secrets_demo.ipynb
+
+Clear Notebook Outputs Command:
+jupyter nbconvert --clear-output --inplace secrets_demo.ipynb
+
+Security Risk Explanation:
+A .ipynb file stores cell outputs directly inside its JSON structure. Even if you delete or edit a cell later, previously printed secrets (like API keys, tokens, or credentials) can remain saved in the output fields or metadata. Sharing the notebook as-is exposes those secrets to anyone who opens the file or views it in version control, so clearing outputs before sharing helps prevent accidental credential leaks.

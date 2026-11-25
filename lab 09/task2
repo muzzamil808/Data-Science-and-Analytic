@@ -1,0 +1,111 @@
+==================================================
+TASK 1: Compute and Inspect Tip Percentage
+==================================================
+import seaborn as sns
+
+df = sns.load_dataset("tips")
+df["tip_pct"] = (df["tip"] / df["total_bill"]) * 100
+
+over_100 = df[df["tip_pct"] > 100]
+
+print("Min tip_pct:", df["tip_pct"].min())
+print("Max tip_pct:", df["tip_pct"].max())
+print("Count of values > 100:", len(over_100))
+print("\nRows with tip_pct > 100:")
+print(over_100[["total_bill", "tip", "tip_pct"]])
+
+# One-Sentence Explanation:
+# Tip percentages greater than 100% can signal data quality issues such as decimal or unit typos, swapped or misrecorded bill and tip amounts, or extreme outliers that can distort model training and summary statistics.
+
+
+==================================================
+TASK 2: Visualize Non-Linear Relationship
+==================================================
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df = sns.load_dataset("tips")
+if "tip_pct" not in df.columns:
+    df["tip_pct"] = (df["tip"] / df["total_bill"]) * 100
+
+plt.figure(figsize=(8, 5))
+sns.scatterplot(data=df, x="total_bill", y="tip_pct")
+plt.title("Tip Percentage vs. Total Bill")
+plt.xlabel("Total Bill")
+plt.ylabel("Tip Percentage (%)")
+plt.tight_layout()
+plt.show()
+
+One-Sentence Shape Description:
+The plot shows a non-linear negative relationship with diminishing returns where tip_pct drops steeply at lower total_bill values and levels off as total_bill increases.
+
+
+==================================================
+TASK 3: Build Leak-Free Regression Pipeline
+==================================================
+import seaborn as sns
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+
+df = sns.load_dataset("tips")
+df["tip_pct"] = (df["tip"] / df["total_bill"]) * 100
+
+X = df[["total_bill"]]
+y = df["tip_pct"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+pipeline = Pipeline([
+    ("scaler", StandardScaler()),
+    ("model", LinearRegression())
+])
+
+pipeline.fit(X_train, y_train)
+print("Pipeline fitted successfully.")
+
+
+==================================================
+TASK 4: Evaluate Against Mean Baseline
+==================================================
+import numpy as np
+import seaborn as sns
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+
+df = sns.load_dataset("tips")
+df["tip_pct"] = (df["tip"] / df["total_bill"]) * 100
+
+X = df[["total_bill"]]
+y = df["tip_pct"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+pipeline = Pipeline([
+    ("scaler", StandardScaler()),
+    ("model", LinearRegression())
+])
+pipeline.fit(X_train, y_train)
+
+train_mean_tip_pct = y_train.mean()
+y_pred = pipeline.predict(X_test)
+baseline_pred = np.full(shape=len(y_test), fill_value=train_mean_tip_pct)
+
+model_mse = mean_squared_error(y_test, y_pred)
+baseline_mse = mean_squared_error(y_test, baseline_pred)
+
+print(f"Training mean tip_pct: {train_mean_tip_pct:.4f}")
+print(f"LinearRegression Pipeline Test MSE: {model_mse:.4f}")
+print(f"Mean Baseline Test MSE: {baseline_mse:.4f}")
+if baseline_mse < model_mse:
+    print("Lower MSE: Mean Baseline is lower.")
+else:
+    print("Lower MSE: LinearRegression Pipeline is lower.")

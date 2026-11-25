@@ -1,0 +1,57 @@
+==================================================
+TASK 1: Create Reproducibility Configuration
+==================================================
+requirements.txt:
+pandas==2.2.3
+matplotlib==3.9.2
+scikit-learn==1.5.2
+
+.gitignore:
+data/
+**/data/
+*.env
+
+
+==================================================
+TASK 2: Write Project README
+==================================================
+README.md:
+# Customer Churn Analysis
+
+## Question
+Which customer attributes and billing patterns most strongly predict whether a subscription customer will churn, and how reliably can we identify at-risk accounts before they cancel?
+
+## How to Run
+1. Install dependencies:
+   pip install -r requirements.txt
+2. Open the notebook:
+   jupyter notebook analysis.ipynb
+
+## Headline Finding
+Month-to-month contract status and short tenure are the strongest drivers of customer churn, while small monthly price differences alone have a weaker effect than contract commitment.
+
+
+==================================================
+TASK 3: Structure Notebook Narrative
+==================================================
+Markdown Cell Titles (6):
+1. Research Question and Business Context
+2. Data Loading and Initial Schema Overview
+3. Data Cleaning and Missing Value Handling
+4. Exploratory Data Analysis and Churn Drivers
+5. Baseline and Predictive Modeling
+6. Conclusion, Limitations, and Next Steps
+
+Conclusion Cell Text:
+Month-to-month customers with shorter tenure show substantially higher churn rates than long-term contract subscribers, making early retention outreach the highest-leverage focus. A key limitation of this analysis is that the dataset lacks post-signup product usage and customer support ticket logs, which may omit behavioral warning signs prior to cancellation. As a next step, we should integrate product engagement and support interaction features and evaluate a regularized gradient-boosted model using cross-validation.
+
+
+==================================================
+TASK 4: Verify Reproducibility Command
+==================================================
+Two Actions in Order (for analysis.ipynb):
+1. Restart Kernel and Clear All Outputs (e.g., "Kernel -> Restart Kernel and Clear All Outputs" in JupyterLab/Notebook).
+2. Run All Cells top-to-bottom (e.g., "Run -> Run All Cells" in JupyterLab/Notebook, or `jupyter nbconvert --to notebook --execute --inplace analysis.ipynb`).
+
+One-Sentence Explanation:
+Restarting and clearing state first eliminates lingering variables or out-of-order execution side effects, while running all cells sequentially verifies that every step executes cleanly from scratch.
